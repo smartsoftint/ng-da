@@ -41,7 +41,9 @@ app.get('/', function(req, res) {
 	welcome += 'GET /Sentinel/v1.0/Sessions/actives<br/>';
 	welcome += 'GET /Sentinel/v1.0/Sessions/inactives<br/>';
 	welcome += 'GET /Sentinel/v1.0/Users/query/by<br/>';
-	welcome += 'DELETE /Sentinel/v1.0/Users/query/by';
+	welcome += 'DELETE /Sentinel/v1.0/Users/query/by<br/>';
+	welcome += 'GET /Sentinel/v1.0/Users/:id/permissions/:pageId<br/>';
+	welcome += 'GET /Sentinel/v1.0/Users/:id/funcs<br/>';
 	res.send(welcome);
 });
 
@@ -85,9 +87,10 @@ app.get('/Sentinel/v1.0/Sessions/inactives', sessionsController.getInactiveSessi
 app.get('/Sentinel/v1.0/Users/query/by', usersController.getUsersBy);
 app.delete('/Sentinel/v1.0/Users/query/by', usersController.deleteUsersBy);
 
-app.get('/Sentinel/v1.0/Permissions', permissionsController.getAllPermissions);
+app.get('/Sentinel/v1.0/Permissions', permissionsController.getFullPermissions);
 
-
+app.get('/Sentinel/v1.0/Users/:id/permissions/:pageId', permissionsController.getPermissionsPerUserAndPage);
+app.get('/Sentinel/v1.0/Users/:id/funcs', permissionsController.getFullPermissionsPerUser);
 
 app.listen(3636, function() {
     console.log("Nodo ejecutandose en el puerto 3636")
